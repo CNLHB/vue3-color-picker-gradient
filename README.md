@@ -1,5 +1,8 @@
 # vue3-color-picker-gradient
 
+[![npm](https://img.shields.io/npm/v/vue3-color-picker-gradient.svg)](https://www.npmjs.com/package/vue2-color-picker-gradient)
+[![npm](https://img.shields.io/npm/dt/vue3-color-picker-gradient.svg)](https://www.npmjs.com/package/vue3-color-picker-gradient)
+[![GitHub stars](https://img.shields.io/github/stars/CNLHB/vue3-color-picker-gradient.svg?style=social&label=Stars&style=for-the-badge)](https://github.com/CNLHB/vue2-color-picker-gradient/stargazers)
 Color Pickers for  ColorPickerGradient, Chrome & more with Vue.js(vue3.x).
 
 ## [Live demo]()
@@ -20,7 +23,9 @@ import ColorPickerGradient from 'vue3-color-picker-gradient'
 Vue.use(ColorPickerGradient)
 
 ```
+
 or
+
 ```
 
 import ColorPicker from 'vue3-color-picker-gradient'
@@ -33,23 +38,18 @@ export default {
 
 ```
 
-## Props
-
 ### Props of ColorPicker
 
-| Name      | Type    | Default | Description                                            |
-| --------- | ------- | ------- | ------------------------------------------------------ |
-| type         | string  | linear      | The type is color    |
-| disabledColorDeg         | boolean  | false      | The y coordinate of the starting point of the graph    |
-| pDeg     | number  | 90     | The position horizontally from a previous node.        |
-| pColor     | object  | {hex: '#000000',rgba: { r: 0, g: 0, b: 0, a: 1 },color: 'rgba(0,0,0,1)'}      | The position vertically from a previous node.          |
-| pColors      | Array   | [pColor,pColor]      | data                                                   |
-| showClose | boolean  | true | true or false |
-| closeOnClickBody | boolean | false   | whether show arrow for each line.                      |
-| titleConfig | object | {text:"颜色选择器",show: true}   |                      |
-|           |         |         |                                                        |
-
-
+| Name             | Type    | Default                                                                  | Description                       |
+| ---------------- | ------- | ------------------------------------------------------------------------ | --------------------------------- |
+| type             | string  | linear or gradient                                                       | Color selector type               |
+| disabledColorDeg | boolean | false                                                                    | Disable angle                     |
+| pDeg             | number  | 90                                                                       | Default angle                     |
+| pColor           | object  | {hex: '#000000',rgba: { r: 0, g: 0, b: 0, a: 1 },color: 'rgba(0,0,0,1)'} | Default color                     |
+| pColors          | Array   | [{...pColor,pst:0},{...pColor,pst:100}]                                  | Gradient Default color Array      |
+| showClose        | boolean | true                                                                     | true or false                     |
+| closeOnClickBody | boolean | false                                                                    | whether show arrow for each line. |
+| titleConfig      | object  | {text:"颜色选择器",show: true}                                           |                                   |
 
 ```vue
 <template>
@@ -87,15 +87,19 @@ export default {
 </template>
 
 <script>
-import ColorPicker from './components/vue2-color-picker.vue'
+import {
+  reactive,
+  toRefs,
+} from 'vue'
+import ColorPicker from './components/vue3-color-picker.vue'
 
 export default {
   name: 'App',
   components: {
     ColorPicker,
   },
-  data() {
-    return {
+  setup(){
+    const state = reactive({
       isShowColorPicker: true,
       isShowColorPicker1: true,
       style: '',
@@ -128,32 +132,38 @@ export default {
           pst: 0,
         },
       ],
+    })
+     function   changeColor({ style, colors, deg, color }) {
+      console.log(style, colors, deg, color)
+      state.style = `background: ${color.color}`
+    }
+    function showPicker() {
+      state.isShowColorPicker = true
+      state.isShowColorPicker1 = true
+    }
+    function onClosePicker() {}
+    function changeColor1({ style, colors, deg, color }) {
+      console.log(style, colors, deg, color)
+      state.style1 = `background: ${style}`
+    }
+    function showPicker1() {
+      state.isShowColorPicker1 = true
+    }
+    function onClosePicker1() {}
+    return {
+      ...toRefs(state),
+      changeColor,
+      showPicker,
+      onClosePicker,
+      changeColor1,
+      showPicker1,
+      onClosePicker1,
     }
   },
-  methods: {
-    changeColor({ style, colors, deg, color }) {
-      console.log(style, colors, deg, color)
-      this.style = `background: ${color.color}`
-    },
-    showPicker() {
-      this.isShowColorPicker = true
-      this.isShowColorPicker1 = true
-    },
-    onClosePicker() {},
-    changeColor1({ style, colors, deg, color }) {
-      console.log(style, colors, deg, color)
-      this.style1 = `background: ${style}`
-    },
-    showPicker1() {
-      this.isShowColorPicker1 = true
-    },
-    onClosePicker1() {},
-  },
-  watch: {},
 }
 </script>
 
-<style lang="scss">
+<style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -180,14 +190,12 @@ export default {
 }
 </style>
 
+</style>
+
 
 
 
 ```
-
-
-
-
 
 ## Local setup
 

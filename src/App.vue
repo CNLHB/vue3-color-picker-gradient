@@ -33,6 +33,10 @@
 </template>
 
 <script>
+import {
+  reactive,
+  toRefs,
+} from 'vue'
 import ColorPicker from './components/vue3-color-picker.vue'
 
 export default {
@@ -40,8 +44,8 @@ export default {
   components: {
     ColorPicker,
   },
-  data() {
-    return {
+  setup(){
+    const state = reactive({
       isShowColorPicker: true,
       isShowColorPicker1: true,
       style: '',
@@ -74,28 +78,34 @@ export default {
           pst: 0,
         },
       ],
+    })
+     function   changeColor({ style, colors, deg, color }) {
+      console.log(style, colors, deg, color)
+      state.style = `background: ${color.color}`
+    }
+    function showPicker() {
+      state.isShowColorPicker = true
+      state.isShowColorPicker1 = true
+    }
+    function onClosePicker() {}
+    function changeColor1({ style, colors, deg, color }) {
+      console.log(style, colors, deg, color)
+      state.style1 = `background: ${style}`
+    }
+    function showPicker1() {
+      state.isShowColorPicker1 = true
+    }
+    function onClosePicker1() {}
+    return {
+      ...toRefs(state),
+      changeColor,
+      showPicker,
+      onClosePicker,
+      changeColor1,
+      showPicker1,
+      onClosePicker1,
     }
   },
-  methods: {
-    changeColor({ style, colors, deg, color }) {
-      console.log(style, colors, deg, color)
-      this.style = `background: ${color.color}`
-    },
-    showPicker() {
-      this.isShowColorPicker = true
-      this.isShowColorPicker1 = true
-    },
-    onClosePicker() {},
-    changeColor1({ style, colors, deg, color }) {
-      console.log(style, colors, deg, color)
-      this.style1 = `background: ${style}`
-    },
-    showPicker1() {
-      this.isShowColorPicker1 = true
-    },
-    onClosePicker1() {},
-  },
-  watch: {},
 }
 </script>
 
