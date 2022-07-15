@@ -1,9 +1,14 @@
 <template>
-  <div class="color_picker_wrapper">
+  <div class="color_picker_wrapper" v-show="modelValue">
     <div class="color_picker_box" ref="refBox" @click.stop>
-      <div class="color_hd" v-if="type === 'gradient'">
-        <div class="title">颜色</div>
-        <div class="gcolor">
+      <div class="color_hd"  :class="!(showClose||titleConfig.show)&&!titleConfig.text?'color_hd_0':''">
+        <div class="title"  v-if="titleConfig.show!==false">
+          <span :style="titleConfig.style || {}">{{ titleConfig.text }}</span>
+          <span v-if="showClose" class="close_box" @click="close"
+            >x</span
+          >
+        </div>
+        <div class="gcolor"  v-if="type === 'gradient'">
           <div class="gcolor_deg" v-if="!disabledColorDeg">
             <div class="gcolor_deg_span">角度</div>
             <Slider v-model="deg" :min="0" :max="360" :show-tooltip="false" />
@@ -13,7 +18,7 @@
           <div class="gcolor_bar" ref="refColorBar">
             <div
               class="gcolor_bar_bg"
-              :style="barStyle"
+              :style="`background: ${barStyle}`"
               @click="handlePotBar"
             ></div>
             <div class="gcolor_bar_pot_box">
@@ -28,7 +33,7 @@
                   on: selectIndex === index,
                 }"
                 @mousedown="sliderPotDown(index)"
-                @click="clickGcolorPot(index)"
+                @click="clickGColorPot(index)"
               ></div>
             </div>
           </div>
@@ -70,7 +75,7 @@ import {
 } from 'vue'
 import { ColorPicker } from 'vue-color-kit'
 import ColorScale from 'color-scales'
-import { cloneDeep } from '../utils/index'
+import { cloneDeep,keepDecimal } from '../utils/index'
 import useDraggle from '../hooks/useDraggle'
 import Slider from 'element-plus/lib/components/slider'
 import 'element-plus/es/components/slider/style/css'
@@ -86,6 +91,10 @@ export default {
     Slider,
   },
   props: {
+    modelValue:{
+      type: Boolean,
+      default: true,
+    },
     type: {
       type: String,
       default: 'linear',
@@ -127,6 +136,23 @@ export default {
         ]
       },
     },
+    showClose: {
+      type: Boolean,
+      default: true,
+    },
+    closeOnClickBody: {
+      type: Boolean,
+      default: false,
+    },
+    titleConfig: {
+      type: Object,
+      default() {
+        return {
+          text: '颜色选择器',
+          style: {},
+        }
+      },
+    },
   },
   setup(props, { emit }) {
     const { type, pColors, pDeg, pColor } = toRefs(props)
@@ -147,10 +173,10 @@ export default {
       const colors = cloneDeep(state.colors)
         .sort((a, b) => a.pst - b.pst)
         .map((item) => {
-          return `${item.color} ${item.pst}%`
+          return `${item.color} ${keepDecimal(String(item.pst)||0,5)}%`
         })
 
-      return `background-image: linear-gradient(${state.deg}deg, ${colors.join(
+      return `linear-gradient(${state.deg}deg, ${colors.join(
         ','
       )});`
     })
@@ -159,7 +185,7 @@ export default {
     const { movePst, enableDraggle, resetDraggle } = useDraggle(
       sliderStart,
       sliderMove,
-      sliderDone
+      sliderDone,
     )
 
     onUnmounted(() => {
@@ -192,7 +218,6 @@ export default {
     watch(
       pColors,
       (pColors) => {
-        console.log('pColors', pColors)
         if (state.selectIndex >= pColors.length) {
           state.selectIndex = pColors.length - 1
         }
@@ -227,16 +252,17 @@ export default {
 
     function bindEvents() {
       type.value === 'gradient' && window.addEventListener('keyup', handleKeyup)
-      window.addEventListener('click', handleClosePicker)
+      props.closeOnClickBody&& window.addEventListener('click', handleClosePicker)
     }
 
     function unbindEvents() {
       type.value === 'gradient' &&
         window.removeEventListener('keyup', handleKeyup)
-      window.removeEventListener('click', handleClosePicker)
+      props.closeOnClickBody&& window.removeEventListener('click', handleClosePicker)
     }
 
     function handleClosePicker() {
+      emit('update:modelValue', false)
       emit('onClose')
     }
 
@@ -284,7 +310,7 @@ export default {
     }
 
     function sliderPotDown(index) {
-      clickGcolorPot(index)
+      clickGColorPot(index)
       enableDraggle()
     }
 
@@ -356,19 +382,22 @@ export default {
       state.colors[state.selectIndex].rgba = color.rgba
     }
 
-    function clickGcolorPot(index) {
+    function clickGColorPot(index) {
       if (state.selectIndex === index) return
       state.selectIndex = index
     }
-
+    function close(){
+      handleClosePicker()
+    }
     return {
       ...toRefs(state),
       changeColor,
       getBarPst,
       barStyle,
-      clickGcolorPot,
+      clickGColorPot,
       sliderPotDown,
       handlePotBar,
+      close
     }
   },
 }
@@ -413,6 +442,14 @@ export default {
         text-align: center;
         color: #606266;
         font-size: 12px;
+        padding: 3px;
+        background-color: #fff;
+        border: 1px solid #dcdfe6;
+        border-radius: 4px;
+        &:focus {
+          border-color: #409eff;
+          outline: 0;
+        }
       }
       :deep() {
         .el-input-number__decrease,
@@ -463,10 +500,28 @@ export default {
     .color_hd {
       margin-bottom: 15px;
     }
-
+    .color_hd_0{
+      margin-bottom: 0;
+    }
     .title {
       font-size: 16px;
-      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      .close_box {
+        speak: none;
+        font-style: normal;
+        font-weight: 400;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        vertical-align: baseline;
+        display: inline-block;
+        color: #909399;
+        width: 26px;
+        height: 100%;
+        font-size: 21px;
+        cursor: pointer;
+      }
     }
     .gcolor {
       position: relative;
