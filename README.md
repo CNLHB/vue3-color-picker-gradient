@@ -2,9 +2,11 @@
 
 [![npm](https://img.shields.io/npm/v/vue3-color-picker-gradient.svg)](https://www.npmjs.com/package/vue2-color-picker-gradient)
 [![npm](https://img.shields.io/npm/dt/vue3-color-picker-gradient.svg)](https://www.npmjs.com/package/vue3-color-picker-gradient)
-[![GitHub stars](https://img.shields.io/github/stars/CNLHB/vue3-color-picker-gradient.svg?style=social&label=Stars&style=for-the-badge)](https://github.com/CNLHB/vue2-color-picker-gradient/stargazers)  
+[![GitHub stars](https://img.shields.io/github/stars/CNLHB/vue3-color-picker-gradient.svg?style=social&label=Stars&style=for-the-badge)](https://github.com/CNLHB/vue2-color-picker-gradient/stargazers)
 
 Color Pickers for  ColorPickerGradient, Chrome & more with Vue.js(vue3.x).
+
+![1657866184714](image/README/1657866184714.png)
 
 ## [Live demo]()
 
@@ -41,19 +43,20 @@ export default {
 
 ### Props of ColorPicker
 
-| Name             | Type    | Default                                                                  | Description                       |
-| ---------------- | ------- | ------------------------------------------------------------------------ | --------------------------------- |
-| type             | string  | linear or gradient                                                       | Color selector type               |
-| disabledColorDeg | boolean | false                                                                    | Disable angle                     |
-| pDeg             | number  | 90                                                                       | Default angle                     |
-| pColor           | object  | {hex: '#000000',rgba: { r: 0, g: 0, b: 0, a: 1 },color: 'rgba(0,0,0,1)'} | Default color                     |
-| pColors          | Array   | [{...pColor,pst:0},{...pColor,pst:100}]                                  | Gradient Default color Array      |
-| showClose        | boolean | true                                                                     | true or false                     |
+| Name             | Type    | Default                                                                  | Description                  |
+| ---------------- | ------- | ------------------------------------------------------------------------ | ---------------------------- |
+| type             | string  | linear or gradient                                                       | Color selector type          |
+| disabledColorDeg | boolean | false                                                                    | Disable angle                |
+| pDeg             | number  | 90                                                                       | Default angle                |
+| pColor           | object  | {hex: '#000000',rgba: { r: 0, g: 0, b: 0, a: 1 },color: 'rgba(0,0,0,1)'} | Default color                |
+| pColors          | Array   | [{...pColor,pst:0},{...pColor,pst:100}]                                  | Gradient Default color Array |
+| showClose        | boolean | true                                                                     | true or false                |
 | closeOnClickBody | boolean | false                                                                    | click on body close picker   |
-| titleConfig      | object  | {text:"颜色选择器",show: true}                                             |                                   |  
-|           |         |         |                                                        |
+| titleConfig      | object  | {text:"颜色选择器",show: true}                                           |                              |
+|                  |         |                                                                          |                              |
 
 ### example
+
 ```vue
 <template>
   <div id="app">
@@ -219,7 +222,9 @@ yarn lib
 ```
 yarn lint
 ```
+
 欢迎点个star🎉🎉🎉
+
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
