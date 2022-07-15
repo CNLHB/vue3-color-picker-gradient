@@ -50,8 +50,10 @@ export default {
 | pColors          | Array   | [{...pColor,pst:0},{...pColor,pst:100}]                                  | Gradient Default color Array      |
 | showClose        | boolean | true                                                                     | true or false                     |
 | closeOnClickBody | boolean | false                                                                    | click on body close picker   |
-| titleConfig      | object  | {text:"颜色选择器",show: true}                                           |                                   |
+| titleConfig      | object  | {text:"颜色选择器",show: true}                                             |                                   |  
+|           |         |         |                                                        |
 
+### example
 ```vue
 <template>
   <div id="app">
