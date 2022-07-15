@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="select" @click="showPicker">选择器</div>
+    <div class="select" @click="showPicker">展示选择器</div>
     <div class="color_poick">
       <ColorPicker
         v-model="isShowColorPicker"
@@ -114,13 +114,14 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 60px 50px;
+
 }
 .select {
   height: 30px;
-  width: 50px;
+  width: 150px;
+  margin-bottom: 30px;
 }
 .color_poick {
   display: flex;
