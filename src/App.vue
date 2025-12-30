@@ -1,75 +1,69 @@
 <template>
   <div id="app">
-    <h1>Vue3 Color Picker Gradient - Element-Plus 风格</h1>
+    <h1>Vue3 Color Picker Gradient - 颜色选择器</h1>
 
     <div class="demo-section">
-      <h2>纯色选择器 (Linear)</h2>
+      <h2>统一颜色选择器（支持纯色/渐变切换）</h2>
       <div class="demo-row">
         <ColorPickerGradient
-          v-model="linearColor"
+          v-model="currentColor"
+          @change="handleColorChange"
+        />
+        <div class="color-preview" :style="{ background: currentColor }">
+          <div class="color-value" :class="{ 'gradient-value': isGradient }">
+            {{ currentColor || '未选择颜色' }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h2>带初始纯色值</h2>
+      <div class="demo-row">
+        <ColorPickerGradient
+          v-model="currentColor2"
           type="linear"
-          @change="handleLinearChange"
+          @change="handleColorChange2"
         />
-        <div class="color-preview" :style="{ background: linearColor }">
-          <div class="color-value">{{ linearColor || '未选择颜色' }}</div>
+        <div class="color-preview" :style="{ background: currentColor2 }">
+          <div class="color-value">{{ currentColor2 }}</div>
         </div>
       </div>
     </div>
 
     <div class="demo-section">
-      <h2>渐变选择器 (Gradient)</h2>
+      <h2>带初始渐变值</h2>
       <div class="demo-row">
         <ColorPickerGradient
-          v-model="gradientColor"
+          v-model="currentColor3"
           type="gradient"
-          @change="handleGradientChange"
+          @change="handleColorChange3"
         />
-        <div class="color-preview" :style="{ background: gradientColor }">
-          <div class="color-value gradient-value">{{ gradientColor || '未选择渐变' }}</div>
+        <div class="color-preview" :style="{ background: currentColor3 }">
+          <div class="color-value gradient-value">{{ currentColor3 }}</div>
         </div>
       </div>
     </div>
 
     <div class="demo-section">
-      <h2>禁用角度控制的渐变选择器</h2>
+      <h2>禁用角度控制</h2>
       <div class="demo-row">
         <ColorPickerGradient
-          v-model="gradientColor2"
+          v-model="currentColor4"
           type="gradient"
           :disabledColorDeg="true"
+          @change="handleColorChange4"
         />
-        <div class="color-preview" :style="{ background: gradientColor2 }">
-          <div class="color-value gradient-value">{{ gradientColor2 || '未选择渐变' }}</div>
+        <div class="color-preview" :style="{ background: currentColor4 }">
+          <div class="color-value gradient-value">{{ currentColor4 }}</div>
         </div>
-      </div>
-    </div>
-
-    <div class="demo-section">
-      <h2>禁用状态</h2>
-      <div class="demo-row">
-        <ColorPickerGradient
-          v-model="disabledColor"
-          type="linear"
-          :disabled="true"
-        />
-        <span class="info-text">禁用状态下无法打开选择器</span>
-      </div>
-    </div>
-
-    <div class="demo-section">
-      <h2>多个选择器</h2>
-      <div class="demo-row">
-        <ColorPickerGradient v-model="color1" type="linear" />
-        <ColorPickerGradient v-model="color2" type="linear" />
-        <ColorPickerGradient v-model="color3" type="linear" />
-        <ColorPickerGradient v-model="gradient1" type="gradient" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, computed } from 'vue'
 import ColorPickerGradient from './components/color-picker-gradient.vue'
 
 export default {
@@ -79,35 +73,50 @@ export default {
   },
   setup() {
     const state = reactive({
-      // 纯色
-      linearColor: 'rgba(25, 77, 51, 1)',
+      // 第一个选择器 - 不传初始值
+      currentColor: '',
 
-      // 渐变色
-      gradientColor: 'linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 1) 100%)',
-      gradientColor2: 'linear-gradient(90deg, rgba(64, 158, 255, 1) 0%, rgba(103, 194, 58, 1) 100%)',
+      // 第二个选择器 - 带初始纯色值
+      currentColor2: 'rgba(25, 77, 51, 1)',
 
-      // 禁用
-      disabledColor: 'rgba(200, 200, 200, 1)',
+      // 第三个选择器 - 带初始渐变值
+      currentColor3: 'linear-gradient(90deg, rgba(64, 158, 255, 1) 0%, rgba(103, 194, 58, 1) 100%)',
 
-      // 多个选择器
-      color1: 'rgba(255, 0, 0, 1)',
-      color2: 'rgba(0, 255, 0, 1)',
-      color3: 'rgba(0, 0, 255, 1)',
-      gradient1: 'linear-gradient(45deg, rgba(255, 0, 0, 1) 0%, rgba(0, 0, 255, 1) 100%)',
+      // 第四个选择器 - 禁用角度
+      currentColor4: '',
     })
 
-    function handleLinearChange(value) {
-      console.log('纯色变化:', value)
+    const isGradient = computed(() => {
+      return state.currentColor && state.currentColor.startsWith('linear-gradient')
+    })
+
+    function handleColorChange(value) {
+      console.log('颜色变化:', value)
+      state.currentColor = value
     }
 
-    function handleGradientChange(value) {
-      console.log('渐变色变化:', value)
+    function handleColorChange2(value) {
+      console.log('颜色变化2:', value)
+      state.currentColor2 = value
+    }
+
+    function handleColorChange3(value) {
+      console.log('颜色变化3:', value)
+      state.currentColor3 = value
+    }
+
+    function handleColorChange4(value) {
+      console.log('颜色变化4:', value)
+      state.currentColor4 = value
     }
 
     return {
       ...toRefs(state),
-      handleLinearChange,
-      handleGradientChange,
+      isGradient,
+      handleColorChange,
+      handleColorChange2,
+      handleColorChange3,
+      handleColorChange4,
     }
   },
 }
@@ -180,10 +189,5 @@ export default {
   &.gradient-value {
     font-size: 11px;
   }
-}
-
-.info-text {
-  color: #909399;
-  font-size: 14px;
 }
 </style>

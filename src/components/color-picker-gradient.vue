@@ -20,7 +20,7 @@
         ref="dropdownRef"
       >
         <ColorPickerPanel
-          :type="type"
+          :type="currentMode"
           :pColor="currentColorObj"
           :pColors="currentColorsArray"
           :pDeg="currentDeg"
@@ -90,9 +90,12 @@ export default {
     const triggerRef = ref(null)
     const dropdownRef = ref(null)
     const showPicker = ref(false)
-    const currentColorObj = ref(parseColorString(props.modelValue))
-    const currentColorsArray = ref(parseGradientString(props.modelValue))
-    const currentDeg = ref(parseGradientDeg(props.modelValue))
+
+    // 只有当 modelValue 有值时才解析，否则为 undefined
+    const currentColorObj = ref(props.modelValue && props.type === 'linear' ? parseColorString(props.modelValue) : undefined)
+    const currentColorsArray = ref(props.modelValue && props.type === 'gradient' ? parseGradientString(props.modelValue) : undefined)
+    const currentDeg = ref(props.modelValue && props.type === 'gradient' ? parseGradientDeg(props.modelValue) : 90)
+    const currentMode = ref(props.type) // 保存当前模式状态
     const dropdownStyle = ref({})
 
     // 计算触发器的背景样式
@@ -280,18 +283,24 @@ export default {
     }
 
     // 处理颜色变化
-    function handleColorChange({ style, colors, color, deg }) {
+    function handleColorChange({ style, colors, color, deg, mode }) {
       let newValue = ''
 
-      if (props.type === 'linear') {
-        // 纯色模式
-        newValue = color.color
-        currentColorObj.value = color
-      } else {
+      // 更新当前模式
+      if (mode) {
+        currentMode.value = mode
+      }
+
+      // 根据返回的数据判断是纯色还是渐变
+      if (style) {
         // 渐变模式
         newValue = style.replace(/;$/, '')
         currentColorsArray.value = colors
         currentDeg.value = deg
+      } else if (color) {
+        // 纯色模式
+        newValue = color.color
+        currentColorObj.value = color
       }
 
       emit('update:modelValue', newValue)
@@ -350,6 +359,7 @@ export default {
       currentColorObj,
       currentColorsArray,
       currentDeg,
+      currentMode,
       triggerStyle,
       dropdownStyle,
       togglePicker,

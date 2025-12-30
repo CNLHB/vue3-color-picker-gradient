@@ -5,7 +5,24 @@
         <span :style="titleConfig.style || {}">{{ titleConfig.text }}</span>
         <span v-if="showClose" class="close_box" @click="handleClose">×</span>
       </div>
-      <div class="gcolor" v-if="type === 'gradient'">
+
+      <!-- 模式切换按钮 -->
+      <div class="mode_switch">
+        <button
+          :class="['mode_btn', { active: currentMode === 'linear' }]"
+          @click="switchMode('linear')"
+        >
+          纯色
+        </button>
+        <button
+          :class="['mode_btn', { active: currentMode === 'gradient' }]"
+          @click="switchMode('gradient')"
+        >
+          渐变
+        </button>
+      </div>
+
+      <div class="gcolor" v-if="currentMode === 'gradient'">
         <div class="gcolor_deg" v-if="!disabledColorDeg">
           <div class="gcolor_deg_span">角度</div>
           <Slider v-model="deg" :min="0" :max="360" :show-tooltip="false" />
@@ -36,7 +53,7 @@
         </div>
       </div>
     </div>
-    <div class="gradient_box" v-if="type === 'gradient'">
+    <div class="gradient_box" v-if="currentMode === 'gradient'">
       <template v-for="(item, index) in colors" :key="`${item.pst}_${index}`">
         <ColorPicker
           theme="light"
@@ -50,6 +67,7 @@
 
     <div class="linear" v-else>
       <ColorPicker
+        v-if="color"
         theme="light"
         :color="color.color"
         :sucker-hide="true"
@@ -97,32 +115,11 @@ export default {
     },
     pColor: {
       type: Object,
-      default() {
-        return {
-          hex: '#000000',
-          rgba: { r: 0, g: 0, b: 0, a: 1 },
-          color: 'rgba(0,0,0,1)',
-        }
-      },
+      default: null,
     },
     pColors: {
       type: Array,
-      default() {
-        return [
-          {
-            color: 'rgba(255, 255, 255, 1)',
-            hex: '#ffffff',
-            rgba: { r: 255, g: 255, b: 255, a: 1 },
-            pst: 100,
-          },
-          {
-            color: 'rgba(0, 0, 0, 1)',
-            hex: '#000000',
-            rgba: { r: 0, g: 0, b: 0, a: 1 },
-            pst: 0,
-          },
-        ]
-      },
+      default: null,
     },
     showClose: {
       type: Boolean,
@@ -143,11 +140,13 @@ export default {
     const { type, pColors, pDeg, pColor } = toRefs(props)
     const state = reactive({
       refColorBar: null,
-      color: pColor.value,
+      color: pColor.value || null,
       deg: pDeg.value,
-      colors: pColors.value,
+      colors: pColors.value || null,
       selectIndex: 0,
       startMovePst: 0,
+      currentMode: type.value, // 当前模式：linear 或 gradient
+      shouldEmitOnBarStyleChange: false, // 控制 barStyle 变化时是否触发事件
     })
 
     const barStyle = computed(() => {
@@ -181,7 +180,8 @@ export default {
     })
 
     watch(barStyle, (barStyle) => {
-      if (type.value === 'linear') return
+      if (state.currentMode === 'linear') return
+      if (!state.shouldEmitOnBarStyleChange) return
 
       emitColorChange({
         style: barStyle,
@@ -211,34 +211,81 @@ export default {
       }
     )
 
+    // 监听角度变化，用户修改角度时启用 barStyle 监听
+    watch(
+      () => state.deg,
+      (newDeg, oldDeg) => {
+        // 只有在初始化完成后，用户手动修改角度时才启用
+        if (oldDeg !== undefined && newDeg !== oldDeg && state.currentMode === 'gradient') {
+          state.shouldEmitOnBarStyleChange = true
+        }
+      }
+    )
+
     function initColors() {
       bindEvents()
 
       // 初始化颜色值
-      if (type.value === 'gradient') {
+      if (state.currentMode === 'gradient') {
+        // 如果没有传入渐变色数据，使用默认值
+        const hasInitialColors = pColors.value && pColors.value.length > 0
+        if (!state.colors || state.colors.length === 0) {
+          state.colors = [
+            {
+              color: 'rgba(255, 255, 255, 1)',
+              hex: '#ffffff',
+              rgba: { r: 255, g: 255, b: 255, a: 1 },
+              pst: 100,
+            },
+            {
+              color: 'rgba(0, 0, 0, 1)',
+              hex: '#000000',
+              rgba: { r: 0, g: 0, b: 0, a: 1 },
+              pst: 0,
+            },
+          ]
+        }
+
         const renderList = cloneDeep(state.colors).sort((a, b) => a.pst - b.pst)
         state.selectIndex = state.colors.findIndex(
           (item) => item.pst === renderList[0].pst
         )
 
-        nextTick(() => {
-          emitColorChange({
-            style: barStyle.value,
+        // 只有传入了初始值才触发事件，并启用 barStyle 监听
+        if (hasInitialColors) {
+          state.shouldEmitOnBarStyleChange = true
+          nextTick(() => {
+            emitColorChange({
+              style: barStyle.value,
+            })
           })
-        })
+        }
       } else {
-        emitColorChange({
-          color: cloneDeep(state.color),
-        })
+        // 如果没有传入纯色数据，使用默认值
+        const hasInitialColor = pColor.value !== null && pColor.value !== undefined
+        if (!state.color) {
+          state.color = {
+            hex: '#000000',
+            rgba: { r: 0, g: 0, b: 0, a: 1 },
+            color: 'rgba(0,0,0,1)',
+          }
+        }
+
+        // 只有传入了初始值才触发事件
+        if (hasInitialColor) {
+          emitColorChange({
+            color: cloneDeep(state.color),
+          })
+        }
       }
     }
 
     function bindEvents() {
-      type.value === 'gradient' && window.addEventListener('keyup', handleKeyup)
+      state.currentMode === 'gradient' && window.addEventListener('keyup', handleKeyup)
     }
 
     function unbindEvents() {
-      type.value === 'gradient' &&
+      state.currentMode === 'gradient' &&
         window.removeEventListener('keyup', handleKeyup)
     }
 
@@ -283,6 +330,9 @@ export default {
 
       // 增加后默认选中
       state.selectIndex = state.colors.length - 1
+
+      // 用户开始交互，启用 barStyle 监听
+      state.shouldEmitOnBarStyleChange = true
     }
 
     function sliderPotDown(index) {
@@ -309,6 +359,9 @@ export default {
         distRatio = 0
       }
       state.colors[state.selectIndex].pst = Math.round(distRatio * 100)
+
+      // 用户拖动滑块，启用 barStyle 监听
+      state.shouldEmitOnBarStyleChange = true
     }
 
     function getBarPst(pst) {
@@ -319,7 +372,7 @@ export default {
       const rgba = color.rgba
       const hex = color.hex
 
-      if (type.value === 'linear') {
+      if (state.currentMode === 'linear') {
         const colorValue = `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`
         state.color = {
           rgba,
@@ -331,6 +384,8 @@ export default {
           color: cloneDeep(state.color),
         })
       } else {
+        // 用户开始修改渐变色，启用 barStyle 监听
+        state.shouldEmitOnBarStyleChange = true
         handleGradientColorChange(color)
       }
     }
@@ -346,6 +401,7 @@ export default {
         colors,
         color,
         deg,
+        mode: state.currentMode, // 返回当前模式
       })
     }
 
@@ -367,6 +423,50 @@ export default {
       emit('close')
     }
 
+    // 切换模式
+    function switchMode(mode) {
+      if (state.currentMode === mode) return
+
+      // 移除旧模式的事件监听
+      unbindEvents()
+
+      state.currentMode = mode
+
+      // 初始化新模式的数据（不触发事件，等用户实际选择后再触发）
+      if (mode === 'gradient') {
+        if (!state.colors || state.colors.length === 0) {
+          state.colors = [
+            {
+              color: 'rgba(255, 255, 255, 1)',
+              hex: '#ffffff',
+              rgba: { r: 255, g: 255, b: 255, a: 1 },
+              pst: 100,
+            },
+            {
+              color: 'rgba(0, 0, 0, 1)',
+              hex: '#000000',
+              rgba: { r: 0, g: 0, b: 0, a: 1 },
+              pst: 0,
+            },
+          ]
+        }
+        state.selectIndex = 0
+        // 不触发事件，等用户实际选择颜色后再触发
+      } else {
+        if (!state.color) {
+          state.color = {
+            hex: '#000000',
+            rgba: { r: 0, g: 0, b: 0, a: 1 },
+            color: 'rgba(0,0,0,1)',
+          }
+        }
+        // 不触发事件，等用户实际选择颜色后再触发
+      }
+
+      // 绑定新模式的事件监听
+      bindEvents()
+    }
+
     return {
       ...toRefs(state),
       changeColor,
@@ -375,7 +475,8 @@ export default {
       clickGColorPot,
       sliderPotDown,
       handlePotBar,
-      handleClose
+      handleClose,
+      switchMode,
     }
   },
 }
@@ -480,6 +581,38 @@ export default {
   .color_hd_0 {
     margin-bottom: 0;
   }
+
+  // 模式切换按钮样式
+  .mode_switch {
+    display: flex;
+    gap: 8px;
+    margin: 10px 0;
+    padding: 4px;
+    background: #fff;
+    border-radius: 4px;
+
+    .mode_btn {
+      flex: 1;
+      padding: 6px 12px;
+      border: none;
+      background: transparent;
+      color: #606266;
+      font-size: 13px;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: all 0.2s;
+
+      &:hover {
+        background: #f5f7fa;
+      }
+
+      &.active {
+        background: #409eff;
+        color: #fff;
+      }
+    }
+  }
+
   .title {
     font-size: 16px;
     display: flex;
