@@ -179,20 +179,22 @@ export default {
 
       const colors = []
       // 提取渐变色值: linear-gradient(90deg, color1 0%, color2 100%)
-      const colorStopsMatch = gradientStr.match(/,\s*([^,]+?)\s+(\d+(?:\.\d+)?%)/g)
+      // 需要处理 rgba(r, g, b, a) 中的逗号，不能简单地用逗号分割
 
-      if (colorStopsMatch) {
-        colorStopsMatch.forEach(stop => {
-          const match = stop.match(/,?\s*(.+?)\s+(\d+(?:\.\d+)?%)/)
-          if (match) {
-            const colorStr = match[1].trim()
-            const pst = parseFloat(match[2])
-            const colorObj = parseColorString(colorStr)
-            colors.push({
-              ...colorObj,
-              pst
-            })
-          }
+      // 先移除 linear-gradient( 和最后的 )
+      const content = gradientStr.replace(/linear-gradient\([^,]+,\s*/, '').replace(/\)$/, '')
+
+      // 使用更精确的正则：匹配 rgba(...) 或 rgb(...) 或 #hex，后跟百分比
+      const colorStopRegex = /(rgba?\([^)]+\)|#[0-9a-fA-F]+)\s+([\d.]+)%/g
+      let match
+
+      while ((match = colorStopRegex.exec(content)) !== null) {
+        const colorStr = match[1].trim()
+        const pst = parseFloat(match[2])
+        const colorObj = parseColorString(colorStr)
+        colors.push({
+          ...colorObj,
+          pst
         })
       }
 

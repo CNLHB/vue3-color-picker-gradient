@@ -1985,6 +1985,25 @@ module.exports = function (iterator, kind, value) {
 
 /***/ }),
 
+/***/ "2ba4":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var NATIVE_BIND = __webpack_require__("40d5");
+
+var FunctionPrototype = Function.prototype;
+var apply = FunctionPrototype.apply;
+var call = FunctionPrototype.call;
+
+// eslint-disable-next-line es/no-function-prototype-bind, es/no-reflect -- safe
+module.exports = typeof Reflect == 'object' && Reflect.apply || (NATIVE_BIND ? call.bind(apply) : function () {
+  return call.apply(apply, arguments);
+});
+
+
+/***/ }),
+
 /***/ "2baa":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27032,6 +27051,22 @@ exports.useIdInjection = useIdInjection;
 
 /***/ }),
 
+/***/ "32f3":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("77cf");
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("499e").default
+var update = add("97b517b8", content, true, {"sourceMap":false,"shadowMode":false});
+
+/***/ }),
+
 /***/ "3511":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29958,6 +29993,23 @@ module.exports = getBuiltIn('Reflect', 'ownKeys') || function ownKeys(it) {
 
 /***/ }),
 
+/***/ "577e":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var classof = __webpack_require__("f5df");
+
+var $String = String;
+
+module.exports = function (argument) {
+  if (classof(argument) === 'Symbol') throw new TypeError('Cannot convert a Symbol value to a string');
+  return $String(argument);
+};
+
+
+/***/ }),
+
 /***/ "5926":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30645,22 +30697,6 @@ exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
 
-/***/ "7636":
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
-var ___CSS_LOADER_AT_RULE_IMPORT_0___ = __webpack_require__("b7d1");
-exports = ___CSS_LOADER_API_IMPORT___(false);
-exports.i(___CSS_LOADER_AT_RULE_IMPORT_0___);
-// Module
-exports.push([module.i, ".color_picker_panel[data-v-641bcfc0]{box-shadow:0 0 16px 0 rgba(0,0,0,.16);border-radius:4px;background:#f7f8f9;padding:15px 10px}.color_picker_panel[data-v-641bcfc0]  .hu-color-picker{box-shadow:none;border-radius:0;background:#f7f8f9;padding:0}.color_picker_panel .gcolor_deg[data-v-641bcfc0]{display:block;display:flex;align-items:center}.color_picker_panel .gcolor_deg .gcolor_deg_span[data-v-641bcfc0]{font-size:12px;margin-right:10px}.color_picker_panel .gcolor_deg .number_input[data-v-641bcfc0]{min-width:20px;max-width:20px;float:none;order:1;margin-left:10px;margin-top:0;display:flex;align-items:center;text-align:center;color:#606266;font-size:12px;padding:3px;background-color:#fff;border:1px solid #dcdfe6;border-radius:4px}.color_picker_panel .gcolor_deg .number_input[data-v-641bcfc0]:focus{border-color:#409eff;outline:0}.color_picker_panel .gcolor_deg[data-v-641bcfc0]  .el-input-number__decrease,.color_picker_panel .gcolor_deg[data-v-641bcfc0]  .el-input-number__increase{display:none}.color_picker_panel .gcolor_deg[data-v-641bcfc0]  .el-input--mini .el-input__inner{padding:0;width:100%!important;height:22px;line-height:22px}.color_picker_panel .gcolor_deg[data-v-641bcfc0]  .el-slider{display:flex;flex:1}.color_picker_panel .gcolor_deg[data-v-641bcfc0]  .el-slider__input{min-width:2em;max-width:2em;float:none;order:1;margin-left:10px;margin-top:0;display:flex;align-items:center}.color_picker_panel .gcolor_deg[data-v-641bcfc0]  .el-slider__runway.show-input{margin-right:0;flex:1;order:0;height:3px}.color_picker_panel .gcolor_deg[data-v-641bcfc0]  .el-slider__button{width:13px;height:13px;border-color:#fff;box-shadow:0 0 4px rgba(0,0,0,.4)}.color_picker_panel .gcolor_deg[data-v-641bcfc0]  .el-slider__bar{height:3px}.color_picker_panel .gcolor_deg[data-v-641bcfc0]  .el-slider__button-wrapper{top:-17px}.color_picker_panel .color_hd[data-v-641bcfc0]{margin-bottom:15px}.color_picker_panel .color_hd_0[data-v-641bcfc0]{margin-bottom:0}.color_picker_panel .title[data-v-641bcfc0]{font-size:16px;display:flex;justify-content:space-between}.color_picker_panel .title .close_box[data-v-641bcfc0]{speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;line-height:1;vertical-align:baseline;display:inline-block;color:#909399;width:26px;height:100%;font-size:21px;cursor:pointer}.color_picker_panel .gcolor[data-v-641bcfc0]{position:relative;margin:10px 0 20px}.color_picker_panel .gcolor_bar[data-v-641bcfc0]{position:relative;margin-top:3px;height:16px;background:url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAJ0lEQVQoU2M8c/X2fwYkYKylgsxlYKSDgv///6O44ey1O6huoL0CAJgaKeXe+C99AAAAAElFTkSuQmCC\") repeat;border-radius:2px}.color_picker_panel .gcolor_bar_bg[data-v-641bcfc0]{position:absolute;left:0;right:0;top:0;bottom:0}.color_picker_panel .gcolor_bar_pot_box[data-v-641bcfc0]{position:absolute;left:8px;top:0;bottom:0;z-index:1;width:calc(100% - 16px);pointer-events:none}.color_picker_panel .gcolor_bar_pot[data-v-641bcfc0]{pointer-events:auto;position:absolute;top:50%;transform:translateY(-50%);height:16px;width:12px;cursor:pointer;border:2px solid #fff}.color_picker_panel .gcolor_bar_pot.on[data-v-641bcfc0]{z-index:2}.color_picker_panel .gcolor_bar_pot.on[data-v-641bcfc0]:before{visibility:visible}.color_picker_panel .gcolor_bar_pot[data-v-641bcfc0]:after{content:\"\";position:absolute;left:-3px;right:-3px;top:-3px;bottom:-3px;border:1px solid #999;border-radius:3px}.color_picker_panel .gcolor_bar_pot[data-v-641bcfc0]:before{content:\"\";position:absolute;left:-4px;right:-4px;top:-4px;bottom:-4px;border:2px solid var(--hoverColor);visibility:hidden;z-index:1;border-radius:3px}", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
 /***/ "76f8":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30699,6 +30735,22 @@ Object.defineProperty(exports, 'isIOS', {
 exports.isAndroid = isAndroid;
 exports.isFirefox = isFirefox;
 //# sourceMappingURL=browser.js.map
+
+
+/***/ }),
+
+/***/ "77cf":
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
+var ___CSS_LOADER_AT_RULE_IMPORT_0___ = __webpack_require__("b7d1");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+exports.i(___CSS_LOADER_AT_RULE_IMPORT_0___);
+// Module
+exports.push([module.i, ".color_picker_panel[data-v-69559542]{box-shadow:0 0 16px 0 rgba(0,0,0,.16);border-radius:4px;background:#f7f8f9;padding:15px 10px}.color_picker_panel[data-v-69559542]  .hu-color-picker{box-shadow:none;border-radius:0;background:#f7f8f9;padding:0}.color_picker_panel .gcolor_deg[data-v-69559542]{display:block;display:flex;align-items:center}.color_picker_panel .gcolor_deg .gcolor_deg_span[data-v-69559542]{font-size:12px;margin-right:10px}.color_picker_panel .gcolor_deg .number_input[data-v-69559542]{min-width:20px;max-width:20px;float:none;order:1;margin-left:10px;margin-top:0;display:flex;align-items:center;text-align:center;color:#606266;font-size:12px;padding:3px;background-color:#fff;border:1px solid #dcdfe6;border-radius:4px}.color_picker_panel .gcolor_deg .number_input[data-v-69559542]:focus{border-color:#409eff;outline:0}.color_picker_panel .gcolor_deg[data-v-69559542]  .el-input-number__decrease,.color_picker_panel .gcolor_deg[data-v-69559542]  .el-input-number__increase{display:none}.color_picker_panel .gcolor_deg[data-v-69559542]  .el-input--mini .el-input__inner{padding:0;width:100%!important;height:22px;line-height:22px}.color_picker_panel .gcolor_deg[data-v-69559542]  .el-slider{display:flex;flex:1}.color_picker_panel .gcolor_deg[data-v-69559542]  .el-slider__input{min-width:2em;max-width:2em;float:none;order:1;margin-left:10px;margin-top:0;display:flex;align-items:center}.color_picker_panel .gcolor_deg[data-v-69559542]  .el-slider__runway.show-input{margin-right:0;flex:1;order:0;height:3px}.color_picker_panel .gcolor_deg[data-v-69559542]  .el-slider__button{width:13px;height:13px;border-color:#fff;box-shadow:0 0 4px rgba(0,0,0,.4)}.color_picker_panel .gcolor_deg[data-v-69559542]  .el-slider__bar{height:3px}.color_picker_panel .gcolor_deg[data-v-69559542]  .el-slider__button-wrapper{top:-17px}.color_picker_panel .color_hd[data-v-69559542]{margin-bottom:15px}.color_picker_panel .color_hd_0[data-v-69559542]{margin-bottom:0}.color_picker_panel .mode_switch[data-v-69559542]{display:flex;gap:8px;margin:10px 0;padding:4px;background:#fff;border-radius:4px}.color_picker_panel .mode_switch .mode_btn[data-v-69559542]{flex:1;padding:6px 12px;border:none;background:transparent;color:#606266;font-size:13px;cursor:pointer;border-radius:3px;transition:all .2s}.color_picker_panel .mode_switch .mode_btn[data-v-69559542]:hover{background:#f5f7fa}.color_picker_panel .mode_switch .mode_btn.active[data-v-69559542]{background:#409eff;color:#fff}.color_picker_panel .title[data-v-69559542]{font-size:16px;display:flex;justify-content:space-between}.color_picker_panel .title .close_box[data-v-69559542]{speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;line-height:1;vertical-align:baseline;display:inline-block;color:#909399;width:26px;height:100%;font-size:21px;cursor:pointer}.color_picker_panel .gcolor[data-v-69559542]{position:relative;margin:10px 0 20px}.color_picker_panel .gcolor_bar[data-v-69559542]{position:relative;margin-top:3px;height:16px;background:url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAJ0lEQVQoU2M8c/X2fwYkYKylgsxlYKSDgv///6O44ey1O6huoL0CAJgaKeXe+C99AAAAAElFTkSuQmCC\") repeat;border-radius:2px}.color_picker_panel .gcolor_bar_bg[data-v-69559542]{position:absolute;left:0;right:0;top:0;bottom:0}.color_picker_panel .gcolor_bar_pot_box[data-v-69559542]{position:absolute;left:8px;top:0;bottom:0;z-index:1;width:calc(100% - 16px);pointer-events:none}.color_picker_panel .gcolor_bar_pot[data-v-69559542]{pointer-events:auto;position:absolute;top:50%;transform:translateY(-50%);height:16px;width:12px;cursor:pointer;border:2px solid #fff}.color_picker_panel .gcolor_bar_pot.on[data-v-69559542]{z-index:2}.color_picker_panel .gcolor_bar_pot.on[data-v-69559542]:before{visibility:visible}.color_picker_panel .gcolor_bar_pot[data-v-69559542]:after{content:\"\";position:absolute;left:-3px;right:-3px;top:-3px;bottom:-3px;border:1px solid #999;border-radius:3px}.color_picker_panel .gcolor_bar_pot[data-v-69559542]:before{content:\"\";position:absolute;left:-4px;right:-4px;top:-4px;bottom:-4px;border:2px solid var(--hoverColor);visibility:hidden;z-index:1;border-radius:3px}", ""]);
+// Exports
+module.exports = exports;
 
 
 /***/ }),
@@ -30940,6 +30992,20 @@ exports.useLocale = useLocale;
 
 /***/ }),
 
+/***/ "8157":
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, ".color-picker-gradient[data-v-0d66245f],.color-trigger[data-v-0d66245f]{display:inline-block;position:relative}.color-trigger[data-v-0d66245f]{box-sizing:border-box;width:40px;height:40px;padding:4px;border:1px solid #dcdfe6;border-radius:4px;font-size:0;cursor:pointer}.color-trigger[data-v-0d66245f]:hover{border-color:#409eff}.color-trigger.is-disabled[data-v-0d66245f]{cursor:not-allowed;opacity:.6}.color-trigger.is-disabled[data-v-0d66245f]:hover{border-color:#dcdfe6}.color-trigger-inner[data-v-0d66245f]{display:inline-block;width:100%;height:100%;border-radius:2px;position:relative;background:url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAJ0lEQVQoU2M8c/X2fwYkYKylgsxlYKSDgv///6O44ey1O6huoL0CAJgaKeXe+C99AAAAAElFTkSuQmCC\") repeat}.color-trigger-empty[data-v-0d66245f]{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;background:#fff}.color-trigger-empty-icon[data-v-0d66245f]{font-size:20px;color:#909399;font-weight:700;transform:rotate(45deg)}.color-picker-dropdown[data-v-0d66245f]{position:fixed;width:218px;animation:fadeIn-0d66245f .2s ease}@keyframes fadeIn-0d66245f{0%{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
 /***/ "825a":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30956,22 +31022,6 @@ module.exports = function (argument) {
   throw new $TypeError($String(argument) + ' is not an object');
 };
 
-
-/***/ }),
-
-/***/ "832d":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("7636");
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__("499e").default
-var update = add("48850a46", content, true, {"sourceMap":false,"shadowMode":false});
 
 /***/ }),
 
@@ -31018,6 +31068,17 @@ var isCallable = __webpack_require__("1626");
 module.exports = function (it) {
   return typeof it == 'object' ? it !== null : isCallable(it);
 };
+
+
+/***/ }),
+
+/***/ "8654":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_9_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_9_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_9_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_v16_dist_index_js_ref_1_1_color_picker_panel_vue_vue_type_style_index_0_id_69559542_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("32f3");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_9_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_9_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_9_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_v16_dist_index_js_ref_1_1_color_picker_panel_vue_vue_type_style_index_0_id_69559542_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_9_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_9_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_9_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_v16_dist_index_js_ref_1_1_color_picker_panel_vue_vue_type_style_index_0_id_69559542_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
 
 
 /***/ }),
@@ -31186,22 +31247,6 @@ module.exports = require("vue");
 
 /***/ }),
 
-/***/ "8d07":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("dc35");
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__("499e").default
-var update = add("256a3e76", content, true, {"sourceMap":false,"shadowMode":false});
-
-/***/ }),
-
 /***/ "8d09":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31303,17 +31348,6 @@ exports.TypeComponentsMap = TypeComponentsMap;
 exports.ValidateComponentsMap = ValidateComponentsMap;
 exports.iconPropType = iconPropType;
 //# sourceMappingURL=icon.js.map
-
-
-/***/ }),
-
-/***/ "8ef7":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_9_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_9_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_9_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_v16_dist_index_js_ref_1_1_color_picker_panel_vue_vue_type_style_index_0_id_641bcfc0_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("832d");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_9_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_9_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_9_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_v16_dist_index_js_ref_1_1_color_picker_panel_vue_vue_type_style_index_0_id_641bcfc0_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_9_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_9_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_9_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_v16_dist_index_js_ref_1_1_color_picker_panel_vue_vue_type_style_index_0_id_641bcfc0_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
 
 
 /***/ }),
@@ -32201,6 +32235,25 @@ exports.vRepeatClick = vRepeatClick;
 
 /***/ }),
 
+/***/ "9cf7":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/* eslint-disable es/no-json -- safe */
+var fails = __webpack_require__("d039");
+
+module.exports = !fails(function () {
+  var unsafeInt = '9007199254740993';
+  // eslint-disable-next-line es/no-nonstandard-json-properties -- feature detection
+  var raw = JSON.rawJSON(unsafeInt);
+  // eslint-disable-next-line es/no-nonstandard-json-properties -- feature detection
+  return !JSON.isRawJSON(raw) || JSON.stringify(raw) !== unsafeInt;
+});
+
+
+/***/ }),
+
 /***/ "9de4":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32934,17 +32987,6 @@ module.exports = function (argument) {
   var key = toPrimitive(argument, 'string');
   return isSymbol(key) ? key : key + '';
 };
-
-
-/***/ }),
-
-/***/ "a0c5":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_9_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_9_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_9_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_v16_dist_index_js_ref_1_1_color_picker_gradient_vue_vue_type_style_index_0_id_3857037c_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("8d07");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_9_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_9_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_9_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_v16_dist_index_js_ref_1_1_color_picker_gradient_vue_vue_type_style_index_0_id_3857037c_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_9_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_9_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_9_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_v16_dist_index_js_ref_1_1_color_picker_gradient_vue_vue_type_style_index_0_id_3857037c_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
 
 
 /***/ }),
@@ -34654,6 +34696,22 @@ module.exports = Color;
 
 /***/ }),
 
+/***/ "b2e8":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("8157");
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("499e").default
+var update = add("e63801b6", content, true, {"sourceMap":false,"shadowMode":false});
+
+/***/ }),
+
 /***/ "b385":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35718,6 +35776,17 @@ exports.useModelToggleProps = useModelToggleProps;
 
 /***/ }),
 
+/***/ "bec9":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_9_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_9_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_9_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_v16_dist_index_js_ref_1_1_color_picker_gradient_vue_vue_type_style_index_0_id_0d66245f_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("b2e8");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_9_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_9_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_9_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_v16_dist_index_js_ref_1_1_color_picker_gradient_vue_vue_type_style_index_0_id_0d66245f_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_9_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_9_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_9_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_9_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_v16_dist_index_js_ref_1_1_color_picker_gradient_vue_vue_type_style_index_0_id_0d66245f_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
 /***/ "c04e":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -36655,6 +36724,70 @@ exports.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
 
 /***/ }),
 
+/***/ "d24a":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var uncurryThis = __webpack_require__("e330");
+var hasOwn = __webpack_require__("1a2d");
+
+var $SyntaxError = SyntaxError;
+var $parseInt = parseInt;
+var fromCharCode = String.fromCharCode;
+var at = uncurryThis(''.charAt);
+var slice = uncurryThis(''.slice);
+var exec = uncurryThis(/./.exec);
+
+var codePoints = {
+  '\\"': '"',
+  '\\\\': '\\',
+  '\\/': '/',
+  '\\b': '\b',
+  '\\f': '\f',
+  '\\n': '\n',
+  '\\r': '\r',
+  '\\t': '\t'
+};
+
+var IS_4_HEX_DIGITS = /^[\da-f]{4}$/i;
+// eslint-disable-next-line regexp/no-control-character -- safe
+var IS_C0_CONTROL_CODE = /^[\u0000-\u001F]$/;
+
+module.exports = function (source, i) {
+  var unterminated = true;
+  var value = '';
+  while (i < source.length) {
+    var chr = at(source, i);
+    if (chr === '\\') {
+      var twoChars = slice(source, i, i + 2);
+      if (hasOwn(codePoints, twoChars)) {
+        value += codePoints[twoChars];
+        i += 2;
+      } else if (twoChars === '\\u') {
+        i += 2;
+        var fourHexDigits = slice(source, i, i + 4);
+        if (!exec(IS_4_HEX_DIGITS, fourHexDigits)) throw new $SyntaxError('Bad Unicode escape at: ' + i);
+        value += fromCharCode($parseInt(fourHexDigits, 16));
+        i += 4;
+      } else throw new $SyntaxError('Unknown escape sequence: "' + twoChars + '"');
+    } else if (chr === '"') {
+      unterminated = false;
+      i++;
+      break;
+    } else {
+      if (exec(IS_C0_CONTROL_CODE, chr)) throw new $SyntaxError('Bad control character in string literal at: ' + i);
+      value += chr;
+      i++;
+    }
+  }
+  if (unterminated) throw new $SyntaxError('Unterminated string at: ' + i);
+  return { value: value, end: i };
+};
+
+
+/***/ }),
+
 /***/ "d2d7":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -36865,20 +36998,6 @@ module.exports = USE_SYMBOL_AS_UID ? function (it) {
   var $Symbol = getBuiltIn('Symbol');
   return isCallable($Symbol) && isPrototypeOf($Symbol.prototype, $Object(it));
 };
-
-
-/***/ }),
-
-/***/ "dc35":
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.i, ".color-picker-gradient[data-v-3857037c],.color-trigger[data-v-3857037c]{display:inline-block;position:relative}.color-trigger[data-v-3857037c]{box-sizing:border-box;width:40px;height:40px;padding:4px;border:1px solid #dcdfe6;border-radius:4px;font-size:0;cursor:pointer}.color-trigger[data-v-3857037c]:hover{border-color:#409eff}.color-trigger.is-disabled[data-v-3857037c]{cursor:not-allowed;opacity:.6}.color-trigger.is-disabled[data-v-3857037c]:hover{border-color:#dcdfe6}.color-trigger-inner[data-v-3857037c]{display:inline-block;width:100%;height:100%;border-radius:2px;position:relative;background:url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAJ0lEQVQoU2M8c/X2fwYkYKylgsxlYKSDgv///6O44ey1O6huoL0CAJgaKeXe+C99AAAAAElFTkSuQmCC\") repeat}.color-trigger-empty[data-v-3857037c]{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;background:#fff}.color-trigger-empty-icon[data-v-3857037c]{font-size:20px;color:#909399;font-weight:700;transform:rotate(45deg)}.color-picker-dropdown[data-v-3857037c]{position:fixed;width:218px;animation:fadeIn-3857037c .2s ease}@keyframes fadeIn-3857037c{0%{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}", ""]);
-// Exports
-module.exports = exports;
 
 
 /***/ }),
@@ -37522,6 +37641,146 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "e9c4":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var getBuiltIn = __webpack_require__("d066");
+var apply = __webpack_require__("2ba4");
+var call = __webpack_require__("c65b");
+var uncurryThis = __webpack_require__("e330");
+var fails = __webpack_require__("d039");
+var isArray = __webpack_require__("e8b5");
+var isCallable = __webpack_require__("1626");
+var isRawJSON = __webpack_require__("f748");
+var isSymbol = __webpack_require__("d9b5");
+var classof = __webpack_require__("c6b6");
+var toString = __webpack_require__("577e");
+var arraySlice = __webpack_require__("f36a");
+var parseJSONString = __webpack_require__("d24a");
+var uid = __webpack_require__("90e3");
+var NATIVE_SYMBOL = __webpack_require__("04f8");
+var NATIVE_RAW_JSON = __webpack_require__("9cf7");
+
+var $String = String;
+var $stringify = getBuiltIn('JSON', 'stringify');
+var exec = uncurryThis(/./.exec);
+var charAt = uncurryThis(''.charAt);
+var charCodeAt = uncurryThis(''.charCodeAt);
+var replace = uncurryThis(''.replace);
+var slice = uncurryThis(''.slice);
+var push = uncurryThis([].push);
+var numberToString = uncurryThis(1.1.toString);
+
+var surrogates = /[\uD800-\uDFFF]/g;
+var lowSurrogates = /^[\uD800-\uDBFF]$/;
+var hiSurrogates = /^[\uDC00-\uDFFF]$/;
+
+var MARK = uid();
+var MARK_LENGTH = MARK.length;
+
+var WRONG_SYMBOLS_CONVERSION = !NATIVE_SYMBOL || fails(function () {
+  var symbol = getBuiltIn('Symbol')('stringify detection');
+  // MS Edge converts symbol values to JSON as {}
+  return $stringify([symbol]) !== '[null]'
+    // WebKit converts symbol values to JSON as null
+    || $stringify({ a: symbol }) !== '{}'
+    // V8 throws on boxed symbols
+    || $stringify(Object(symbol)) !== '{}';
+});
+
+// https://github.com/tc39/proposal-well-formed-stringify
+var ILL_FORMED_UNICODE = fails(function () {
+  return $stringify('\uDF06\uD834') !== '"\\udf06\\ud834"'
+    || $stringify('\uDEAD') !== '"\\udead"';
+});
+
+var stringifyWithProperSymbolsConversion = WRONG_SYMBOLS_CONVERSION ? function (it, replacer) {
+  var args = arraySlice(arguments);
+  var $replacer = getReplacerFunction(replacer);
+  if (!isCallable($replacer) && (it === undefined || isSymbol(it))) return; // IE8 returns string on undefined
+  args[1] = function (key, value) {
+    // some old implementations (like WebKit) could pass numbers as keys
+    if (isCallable($replacer)) value = call($replacer, this, $String(key), value);
+    if (!isSymbol(value)) return value;
+  };
+  return apply($stringify, null, args);
+} : $stringify;
+
+var fixIllFormedJSON = function (match, offset, string) {
+  var prev = charAt(string, offset - 1);
+  var next = charAt(string, offset + 1);
+  if ((exec(lowSurrogates, match) && !exec(hiSurrogates, next)) || (exec(hiSurrogates, match) && !exec(lowSurrogates, prev))) {
+    return '\\u' + numberToString(charCodeAt(match, 0), 16);
+  } return match;
+};
+
+var getReplacerFunction = function (replacer) {
+  if (isCallable(replacer)) return replacer;
+  if (!isArray(replacer)) return;
+  var rawLength = replacer.length;
+  var keys = [];
+  for (var i = 0; i < rawLength; i++) {
+    var element = replacer[i];
+    if (typeof element == 'string') push(keys, element);
+    else if (typeof element == 'number' || classof(element) === 'Number' || classof(element) === 'String') push(keys, toString(element));
+  }
+  var keysLength = keys.length;
+  var root = true;
+  return function (key, value) {
+    if (root) {
+      root = false;
+      return value;
+    }
+    if (isArray(this)) return value;
+    for (var j = 0; j < keysLength; j++) if (keys[j] === key) return value;
+  };
+};
+
+// `JSON.stringify` method
+// https://tc39.es/ecma262/#sec-json.stringify
+// https://github.com/tc39/proposal-json-parse-with-source
+if ($stringify) $({ target: 'JSON', stat: true, arity: 3, forced: WRONG_SYMBOLS_CONVERSION || ILL_FORMED_UNICODE || !NATIVE_RAW_JSON }, {
+  stringify: function stringify(text, replacer, space) {
+    var replacerFunction = getReplacerFunction(replacer);
+    var rawStrings = [];
+
+    var json = stringifyWithProperSymbolsConversion(text, function (key, value) {
+      // some old implementations (like WebKit) could pass numbers as keys
+      var v = isCallable(replacerFunction) ? call(replacerFunction, this, $String(key), value) : value;
+      return !NATIVE_RAW_JSON && isRawJSON(v) ? MARK + (push(rawStrings, v.rawJSON) - 1) : v;
+    }, space);
+
+    if (typeof json != 'string') return json;
+
+    if (ILL_FORMED_UNICODE) json = replace(json, surrogates, fixIllFormedJSON);
+
+    if (NATIVE_RAW_JSON) return json;
+
+    var result = '';
+    var length = json.length;
+
+    for (var i = 0; i < length; i++) {
+      var chr = charAt(json, i);
+      if (chr === '"') {
+        var end = parseJSONString(json, ++i).end - 1;
+        var string = slice(json, i, end);
+        result += slice(string, 0, MARK_LENGTH) === MARK
+          ? rawStrings[slice(string, MARK_LENGTH)]
+          : '"' + string + '"';
+        i = end;
+      } else result += chr;
+    }
+
+    return result;
+  }
+});
+
+
+/***/ }),
+
 /***/ "e9f5":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37825,6 +38084,18 @@ const sliderContextKey = Symbol("sliderContextKey");
 
 exports.sliderContextKey = sliderContextKey;
 //# sourceMappingURL=constants.js.map
+
+
+/***/ }),
+
+/***/ "f36a":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var uncurryThis = __webpack_require__("e330");
+
+module.exports = uncurryThis([].slice);
 
 
 /***/ }),
@@ -44245,6 +44516,23 @@ var _sfc_main293 = /* @__PURE__ */ Object(vue__WEBPACK_IMPORTED_MODULE_0__["defi
 
 /***/ }),
 
+/***/ "f748":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var isObject = __webpack_require__("861d");
+var getInternalState = __webpack_require__("69f3").get;
+
+module.exports = function isRawJSON(O) {
+  if (!isObject(O)) return false;
+  var state = getInternalState(O);
+  return !!state && state.type === 'RawJSON';
+};
+
+
+/***/ }),
+
 /***/ "f772":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44675,7 +44963,7 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader-v16/dist??ref--1-1!./src/components/color-picker-gradient.vue?vue&type=template&id=3857037c&scoped=true
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader-v16/dist??ref--1-1!./src/components/color-picker-gradient.vue?vue&type=template&id=0d66245f&scoped=true
 
 const _hoisted_1 = {
   class: "color-picker-gradient",
@@ -44705,7 +44993,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])($setup.dropdownStyle),
     ref: "dropdownRef"
   }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_ColorPickerPanel, {
-    type: $props.type,
+    type: $setup.currentMode,
     pColor: $setup.currentColorObj,
     pColors: $setup.currentColorsArray,
     pDeg: $setup.currentDeg,
@@ -44716,77 +45004,84 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClose: $setup.closePicker
   }, null, 8, ["type", "pColor", "pColors", "pDeg", "disabledColorDeg", "titleConfig", "onChange", "onClose"])], 4)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)]))], 512);
 }
-// CONCATENATED MODULE: ./src/components/color-picker-gradient.vue?vue&type=template&id=3857037c&scoped=true
+// CONCATENATED MODULE: ./src/components/color-picker-gradient.vue?vue&type=template&id=0d66245f&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.push.js
 var es_array_push = __webpack_require__("14d9");
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.iterator.constructor.js
-var es_iterator_constructor = __webpack_require__("e9f5");
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader-v16/dist??ref--1-1!./src/components/color-picker-panel.vue?vue&type=template&id=69559542&scoped=true
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.iterator.for-each.js
-var es_iterator_for_each = __webpack_require__("7d54");
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader-v16/dist??ref--1-1!./src/components/color-picker-panel.vue?vue&type=template&id=641bcfc0&scoped=true
-
-const color_picker_panelvue_type_template_id_641bcfc0_scoped_true_hoisted_1 = {
+const color_picker_panelvue_type_template_id_69559542_scoped_true_hoisted_1 = {
   key: 0,
   class: "title"
 };
-const color_picker_panelvue_type_template_id_641bcfc0_scoped_true_hoisted_2 = {
+const color_picker_panelvue_type_template_id_69559542_scoped_true_hoisted_2 = {
+  class: "mode_switch"
+};
+const _hoisted_3 = {
   key: 1,
   class: "gcolor"
 };
-const _hoisted_3 = {
+const _hoisted_4 = {
   key: 0,
   class: "gcolor_deg"
 };
-const _hoisted_4 = {
+const _hoisted_5 = {
   class: "gcolor_bar",
   ref: "refColorBar"
 };
-const _hoisted_5 = {
+const _hoisted_6 = {
   class: "gcolor_bar_pot_box"
 };
-const _hoisted_6 = ["onMousedown", "onClick"];
-const _hoisted_7 = {
+const _hoisted_7 = ["onMousedown", "onClick"];
+const _hoisted_8 = {
   key: 0,
   class: "gradient_box"
 };
-const _hoisted_8 = {
+const _hoisted_9 = {
   key: 1,
   class: "linear"
 };
-function color_picker_panelvue_type_template_id_641bcfc0_scoped_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+function color_picker_panelvue_type_template_id_69559542_scoped_true_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_Slider = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("Slider");
   const _component_ColorPicker = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("ColorPicker");
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
     class: "color_picker_panel",
-    onClick: _cache[4] || (_cache[4] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(() => {}, ["stop"]))
+    onClick: _cache[6] || (_cache[6] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(() => {}, ["stop"]))
   }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
     class: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeClass"])(["color_hd", !($props.showClose || $props.titleConfig.show) && !$props.titleConfig.text ? 'color_hd_0' : ''])
-  }, [$props.titleConfig.show !== false ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", color_picker_panelvue_type_template_id_641bcfc0_scoped_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", {
+  }, [$props.titleConfig.show !== false ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", color_picker_panelvue_type_template_id_69559542_scoped_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", {
     style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])($props.titleConfig.style || {})
   }, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])($props.titleConfig.text), 5), $props.showClose ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("span", {
     key: 0,
     class: "close_box",
     onClick: _cache[0] || (_cache[0] = (...args) => $setup.handleClose && $setup.handleClose(...args))
-  }, "×")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true), $props.type === 'gradient' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", color_picker_panelvue_type_template_id_641bcfc0_scoped_true_hoisted_2, [!$props.disabledColorDeg ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", _hoisted_3, [_cache[5] || (_cache[5] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+  }, "×")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", color_picker_panelvue_type_template_id_69559542_scoped_true_hoisted_2, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("button", {
+    class: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeClass"])(['mode_btn', {
+      active: _ctx.currentMode === 'linear'
+    }]),
+    onClick: _cache[1] || (_cache[1] = $event => $setup.switchMode('linear'))
+  }, " 纯色 ", 2), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("button", {
+    class: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeClass"])(['mode_btn', {
+      active: _ctx.currentMode === 'gradient'
+    }]),
+    onClick: _cache[2] || (_cache[2] = $event => $setup.switchMode('gradient'))
+  }, " 渐变 ", 2)]), _ctx.currentMode === 'gradient' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", _hoisted_3, [!$props.disabledColorDeg ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", _hoisted_4, [_cache[7] || (_cache[7] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
     class: "gcolor_deg_span"
   }, "角度", -1)), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Slider, {
     modelValue: _ctx.deg,
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = $event => _ctx.deg = $event),
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = $event => _ctx.deg = $event),
     min: 0,
     max: 360,
     "show-tooltip": false
   }, null, 8, ["modelValue"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("input", {
     class: "number_input",
-    "onUpdate:modelValue": _cache[2] || (_cache[2] = $event => _ctx.deg = $event)
-  }, null, 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vModelText"], _ctx.deg]])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_4, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = $event => _ctx.deg = $event)
+  }, null, 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vModelText"], _ctx.deg]])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_5, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
     class: "gcolor_bar_bg",
     style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])(`background: ${$setup.barStyle}`),
-    onClick: _cache[3] || (_cache[3] = (...args) => $setup.handlePotBar && $setup.handlePotBar(...args))
-  }, null, 4), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_5, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(_ctx.colors, (item, index) => {
+    onClick: _cache[5] || (_cache[5] = (...args) => $setup.handlePotBar && $setup.handlePotBar(...args))
+  }, null, 4), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_6, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(_ctx.colors, (item, index) => {
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
       class: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeClass"])(["gcolor_bar_pot", {
         on: _ctx.selectIndex === index
@@ -44797,8 +45092,8 @@ function color_picker_panelvue_type_template_id_641bcfc0_scoped_true_render(_ctx
       }),
       onMousedown: $event => $setup.sliderPotDown(index),
       onClick: $event => $setup.clickGColorPot(index)
-    }, null, 46, _hoisted_6);
-  }), 128))])], 512)])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)], 2), $props.type === 'gradient' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", _hoisted_7, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(_ctx.colors, (item, index) => {
+    }, null, 46, _hoisted_7);
+  }), 128))])], 512)])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)], 2), _ctx.currentMode === 'gradient' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", _hoisted_8, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(_ctx.colors, (item, index) => {
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], {
       key: `${item.pst}_${index}`
     }, [index === _ctx.selectIndex ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(_component_ColorPicker, {
@@ -44808,17 +45103,24 @@ function color_picker_panelvue_type_template_id_641bcfc0_scoped_true_render(_ctx
       "sucker-hide": true,
       onChangeColor: $setup.changeColor
     }, null, 8, ["color", "onChangeColor"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)], 64);
-  }), 128))])) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", _hoisted_8, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_ColorPicker, {
+  }), 128))])) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", _hoisted_9, [_ctx.color ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(_component_ColorPicker, {
+    key: 0,
     theme: "light",
     color: _ctx.color.color,
     "sucker-hide": true,
     onChangeColor: $setup.changeColor
-  }, null, 8, ["color", "onChangeColor"])]))]);
+  }, null, 8, ["color", "onChangeColor"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)]))]);
 }
-// CONCATENATED MODULE: ./src/components/color-picker-panel.vue?vue&type=template&id=641bcfc0&scoped=true
+// CONCATENATED MODULE: ./src/components/color-picker-panel.vue?vue&type=template&id=69559542&scoped=true
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.iterator.constructor.js
+var es_iterator_constructor = __webpack_require__("e9f5");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.iterator.map.js
 var es_iterator_map = __webpack_require__("ab43");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.json.stringify.js
+var es_json_stringify = __webpack_require__("e9c4");
 
 // CONCATENATED MODULE: ./node_modules/vue-color-kit/dist/vue-color-kit.esm-bundler.js
 /*!
@@ -45948,6 +46250,9 @@ var vue_color_kit_esm_bundler_index = { install };
 var lib = __webpack_require__("5bda");
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.iterator.for-each.js
+var es_iterator_for_each = __webpack_require__("7d54");
+
 // CONCATENATED MODULE: ./src/utils/index.js
 
 
@@ -46105,6 +46410,7 @@ var el_popper = __webpack_require__("a16d");
 
 
 
+
 /* harmony default export */ var color_picker_panelvue_type_script_lang_js = ({
   name: 'ColorPickerPanel',
   components: {
@@ -46126,44 +46432,11 @@ var el_popper = __webpack_require__("a16d");
     },
     pColor: {
       type: Object,
-      default() {
-        return {
-          hex: '#000000',
-          rgba: {
-            r: 0,
-            g: 0,
-            b: 0,
-            a: 1
-          },
-          color: 'rgba(0,0,0,1)'
-        };
-      }
+      default: null
     },
     pColors: {
       type: Array,
-      default() {
-        return [{
-          color: 'rgba(255, 255, 255, 1)',
-          hex: '#ffffff',
-          rgba: {
-            r: 255,
-            g: 255,
-            b: 255,
-            a: 1
-          },
-          pst: 100
-        }, {
-          color: 'rgba(0, 0, 0, 1)',
-          hex: '#000000',
-          rgba: {
-            r: 0,
-            g: 0,
-            b: 0,
-            a: 1
-          },
-          pst: 0
-        }];
-      }
+      default: null
     },
     showClose: {
       type: Boolean,
@@ -46191,11 +46464,18 @@ var el_popper = __webpack_require__("a16d");
     } = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRefs"])(props);
     const state = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["reactive"])({
       refColorBar: null,
-      color: pColor.value,
+      color: pColor.value || null,
       deg: pDeg.value,
-      colors: pColors.value,
+      colors: pColors.value || null,
       selectIndex: 0,
-      startMovePst: 0
+      startMovePst: 0,
+      currentMode: type.value,
+      // 当前模式：linear 或 gradient
+      shouldEmitOnBarStyleChange: false,
+      // 控制 barStyle 变化时是否触发事件
+      lastEmittedStyle: '',
+      // 记录上次发出的样式，用于防止重复触发
+      isEmitting: false // 标志是否正在发出change事件，避免监听自己的更改
     });
     const barStyle = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(() => {
       if (!state.colors) {
@@ -46220,7 +46500,12 @@ var el_popper = __webpack_require__("a16d");
       initColors();
     });
     Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(barStyle, barStyle => {
-      if (type.value === 'linear') return;
+      if (state.currentMode === 'linear') return;
+      if (!state.shouldEmitOnBarStyleChange) return;
+
+      // 防止重复触发：如果样式没有变化，不发出事件
+      if (barStyle === state.lastEmittedStyle) return;
+      state.lastEmittedStyle = barStyle;
       emitColorChange({
         style: barStyle
       });
@@ -46230,37 +46515,92 @@ var el_popper = __webpack_require__("a16d");
     }, {
       deep: true
     });
-    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(pColors, pColors => {
-      if (state.selectIndex >= pColors.length) {
-        state.selectIndex = pColors.length - 1;
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(pColors, (newPColors, oldPColors) => {
+      if (!newPColors) return; // 如果 pColors 为空，不更新
+      if (state.isEmitting) return; // 如果正在发出事件，忽略由此引起的 props 更新
+
+      // 如果颜色数据没有实际变化，不更新（避免重新打开面板时重置）
+      if (oldPColors && JSON.stringify(newPColors) === JSON.stringify(oldPColors)) {
+        return;
       }
-      state.colors = cloneDeep(pColors);
+      if (state.selectIndex >= newPColors.length) {
+        state.selectIndex = newPColors.length - 1;
+      }
+      state.colors = cloneDeep(newPColors);
     }, {
       deep: true
+    });
+
+    // 监听角度变化，用户修改角度时启用 barStyle 监听
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(() => state.deg, (newDeg, oldDeg) => {
+      // 只有在初始化完成后，用户手动修改角度时才启用
+      if (oldDeg !== undefined && newDeg !== oldDeg && state.currentMode === 'gradient') {
+        state.shouldEmitOnBarStyleChange = true;
+      }
     });
     function initColors() {
       bindEvents();
 
       // 初始化颜色值
-      if (type.value === 'gradient') {
+      if (state.currentMode === 'gradient') {
+        // 如果没有传入渐变色数据，使用默认值
+        if (!state.colors || state.colors.length === 0) {
+          state.colors = [{
+            color: 'rgba(255, 255, 255, 1)',
+            hex: '#ffffff',
+            rgba: {
+              r: 255,
+              g: 255,
+              b: 255,
+              a: 1
+            },
+            pst: 0
+          }, {
+            color: 'rgba(0, 0, 0, 1)',
+            hex: '#000000',
+            rgba: {
+              r: 0,
+              g: 0,
+              b: 0,
+              a: 1
+            },
+            pst: 100
+          }];
+        }
         const renderList = cloneDeep(state.colors).sort((a, b) => a.pst - b.pst);
         state.selectIndex = state.colors.findIndex(item => item.pst === renderList[0].pst);
-        Object(external_commonjs_vue_commonjs2_vue_root_Vue_["nextTick"])(() => {
-          emitColorChange({
-            style: barStyle.value
-          });
-        });
+
+        // 不在初始化时触发事件，避免覆盖传入的初始值
+        // 只有用户实际操作（修改颜色、角度、滑块）时才会触发 change 事件
       } else {
-        emitColorChange({
-          color: cloneDeep(state.color)
-        });
+        // 如果没有传入纯色数据，使用默认值
+        const hasInitialColor = pColor.value !== null && pColor.value !== undefined;
+        if (!state.color) {
+          state.color = {
+            hex: '#000000',
+            rgba: {
+              r: 0,
+              g: 0,
+              b: 0,
+              a: 1
+            },
+            color: 'rgba(0,0,0,1)'
+          };
+        }
+
+        // 只有传入了初始值才触发事件
+        if (hasInitialColor) {
+          emitColorChange({
+            color: cloneDeep(state.color)
+          });
+        }
       }
     }
     function bindEvents() {
-      type.value === 'gradient' && window.addEventListener('keyup', handleKeyup);
+      state.currentMode === 'gradient' && window.addEventListener('keyup', handleKeyup);
     }
     function unbindEvents() {
-      type.value === 'gradient' && window.removeEventListener('keyup', handleKeyup);
+      state.currentMode === 'gradient' && window.removeEventListener('keyup', handleKeyup);
     }
     function handleKeyup(e) {
       if ([8, 46].includes(e.keyCode)) {
@@ -46298,6 +46638,9 @@ var el_popper = __webpack_require__("a16d");
 
       // 增加后默认选中
       state.selectIndex = state.colors.length - 1;
+
+      // 用户开始交互，启用 barStyle 监听
+      state.shouldEmitOnBarStyleChange = true;
     }
     function sliderPotDown(index) {
       clickGColorPot(index);
@@ -46319,6 +46662,9 @@ var el_popper = __webpack_require__("a16d");
         distRatio = 0;
       }
       state.colors[state.selectIndex].pst = Math.round(distRatio * 100);
+
+      // 用户拖动滑块，启用 barStyle 监听
+      state.shouldEmitOnBarStyleChange = true;
     }
     function getBarPst(pst) {
       return `calc(${pst}% - 8px)`;
@@ -46326,7 +46672,7 @@ var el_popper = __webpack_require__("a16d");
     function changeColor(color) {
       const rgba = color.rgba;
       const hex = color.hex;
-      if (type.value === 'linear') {
+      if (state.currentMode === 'linear') {
         const colorValue = `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`;
         state.color = {
           rgba,
@@ -46337,6 +46683,8 @@ var el_popper = __webpack_require__("a16d");
           color: cloneDeep(state.color)
         });
       } else {
+        // 用户开始修改渐变色，启用 barStyle 监听
+        state.shouldEmitOnBarStyleChange = true;
         handleGradientColorChange(color);
       }
     }
@@ -46346,18 +46694,29 @@ var el_popper = __webpack_require__("a16d");
       color = cloneDeep(state.color),
       deg = state.deg
     }) {
+      state.isEmitting = true;
       emit('change', {
         style,
         colors,
         color,
-        deg
+        deg,
+        mode: state.currentMode // 返回当前模式
       });
+      // 使用 setTimeout 确保 props 更新后再重置标志
+      setTimeout(() => {
+        state.isEmitting = false;
+      }, 0);
     }
     function handleGradientColorChange(color) {
       const rgba = color.rgba;
-      state.colors[state.selectIndex].color = `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`;
-      state.colors[state.selectIndex].hex = color.hex;
-      state.colors[state.selectIndex].rgba = color.rgba;
+      const updatedColor = {
+        ...state.colors[state.selectIndex],
+        color: `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`,
+        hex: color.hex,
+        rgba: color.rgba
+      };
+      // 使用splice替换整个对象以确保响应式更新
+      state.colors.splice(state.selectIndex, 1, updatedColor);
     }
     function clickGColorPot(index) {
       if (state.selectIndex === index) return;
@@ -46365,6 +46724,60 @@ var el_popper = __webpack_require__("a16d");
     }
     function handleClose() {
       emit('close');
+    }
+    // 切换模式
+    function switchMode(mode) {
+      if (state.currentMode === mode) return;
+
+      // 移除旧模式的事件监听
+      unbindEvents();
+      state.currentMode = mode;
+
+      // 初始化新模式的数据（不触发事件，等用户实际选择后再触发）
+      if (mode === 'gradient') {
+        if (!state.colors || state.colors.length === 0) {
+          state.colors = [{
+            color: 'rgba(255, 255, 255, 1)',
+            hex: '#ffffff',
+            rgba: {
+              r: 255,
+              g: 255,
+              b: 255,
+              a: 1
+            },
+            pst: 0
+          }, {
+            color: 'rgba(0, 0, 0, 1)',
+            hex: '#000000',
+            rgba: {
+              r: 0,
+              g: 0,
+              b: 0,
+              a: 1
+            },
+            pst: 100
+          }];
+        }
+        state.selectIndex = 0;
+        // 不触发事件，等用户实际选择颜色后再触发
+      } else {
+        if (!state.color) {
+          state.color = {
+            hex: '#000000',
+            rgba: {
+              r: 0,
+              g: 0,
+              b: 0,
+              a: 1
+            },
+            color: 'rgba(0,0,0,1)'
+          };
+        }
+        // 不触发事件，等用户实际选择颜色后再触发
+      }
+
+      // 绑定新模式的事件监听
+      bindEvents();
     }
     return {
       ...Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRefs"])(state),
@@ -46374,14 +46787,15 @@ var el_popper = __webpack_require__("a16d");
       clickGColorPot,
       sliderPotDown,
       handlePotBar,
-      handleClose
+      handleClose,
+      switchMode
     };
   }
 });
 // CONCATENATED MODULE: ./src/components/color-picker-panel.vue?vue&type=script&lang=js
  
-// EXTERNAL MODULE: ./src/components/color-picker-panel.vue?vue&type=style&index=0&id=641bcfc0&rel=stylesheet%2Fscss&lang=scss&scoped=true
-var color_picker_panelvue_type_style_index_0_id_641bcfc0_rel_stylesheet_2Fscss_lang_scss_scoped_true = __webpack_require__("8ef7");
+// EXTERNAL MODULE: ./src/components/color-picker-panel.vue?vue&type=style&index=0&id=69559542&rel=stylesheet%2Fscss&lang=scss&scoped=true
+var color_picker_panelvue_type_style_index_0_id_69559542_rel_stylesheet_2Fscss_lang_scss_scoped_true = __webpack_require__("8654");
 
 // EXTERNAL MODULE: ./node_modules/vue-loader-v16/dist/exportHelper.js
 var exportHelper = __webpack_require__("6b0d");
@@ -46395,12 +46809,10 @@ var exportHelper_default = /*#__PURE__*/__webpack_require__.n(exportHelper);
 
 
 
-const __exports__ = /*#__PURE__*/exportHelper_default()(color_picker_panelvue_type_script_lang_js, [['render',color_picker_panelvue_type_template_id_641bcfc0_scoped_true_render],['__scopeId',"data-v-641bcfc0"]])
+const __exports__ = /*#__PURE__*/exportHelper_default()(color_picker_panelvue_type_script_lang_js, [['render',color_picker_panelvue_type_template_id_69559542_scoped_true_render],['__scopeId',"data-v-69559542"]])
 
 /* harmony default export */ var color_picker_panel = (__exports__);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader-v16/dist??ref--1-1!./src/components/color-picker-gradient.vue?vue&type=script&lang=js
-
-
 
 
 
@@ -46458,9 +46870,13 @@ const __exports__ = /*#__PURE__*/exportHelper_default()(color_picker_panelvue_ty
     const triggerRef = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(null);
     const dropdownRef = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(null);
     const showPicker = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(false);
-    const currentColorObj = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(parseColorString(props.modelValue));
-    const currentColorsArray = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(parseGradientString(props.modelValue));
-    const currentDeg = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(parseGradientDeg(props.modelValue));
+    const isInternalUpdate = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(false); // 标志是否是内部更新
+
+    // 只有当 modelValue 有值时才解析，否则为 undefined
+    const currentColorObj = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.modelValue && props.type === 'linear' ? parseColorString(props.modelValue) : undefined);
+    const currentColorsArray = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.type === 'gradient' ? parseGradientString(props.modelValue) : undefined);
+    const currentDeg = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.type === 'gradient' ? parseGradientDeg(props.modelValue) : 90);
+    const currentMode = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.type); // 保存当前模式状态
     const dropdownStyle = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])({});
 
     // 计算触发器的背景样式
@@ -46562,19 +46978,21 @@ const __exports__ = /*#__PURE__*/exportHelper_default()(color_picker_panelvue_ty
       }
       const colors = [];
       // 提取渐变色值: linear-gradient(90deg, color1 0%, color2 100%)
-      const colorStopsMatch = gradientStr.match(/,\s*([^,]+?)\s+(\d+(?:\.\d+)?%)/g);
-      if (colorStopsMatch) {
-        colorStopsMatch.forEach(stop => {
-          const match = stop.match(/,?\s*(.+?)\s+(\d+(?:\.\d+)?%)/);
-          if (match) {
-            const colorStr = match[1].trim();
-            const pst = parseFloat(match[2]);
-            const colorObj = parseColorString(colorStr);
-            colors.push({
-              ...colorObj,
-              pst
-            });
-          }
+      // 需要处理 rgba(r, g, b, a) 中的逗号，不能简单地用逗号分割
+
+      // 先移除 linear-gradient( 和最后的 )
+      const content = gradientStr.replace(/linear-gradient\([^,]+,\s*/, '').replace(/\)$/, '');
+
+      // 使用更精确的正则：匹配 rgba(...) 或 rgb(...) 或 #hex，后跟百分比
+      const colorStopRegex = /(rgba?\([^)]+\)|#[0-9a-fA-F]+)\s+([\d.]+)%/g;
+      let match;
+      while ((match = colorStopRegex.exec(content)) !== null) {
+        const colorStr = match[1].trim();
+        const pst = parseFloat(match[2]);
+        const colorObj = parseColorString(colorStr);
+        colors.push({
+          ...colorObj,
+          pst
         });
       }
       return colors.length >= 2 ? colors : [{
@@ -46676,22 +47094,38 @@ const __exports__ = /*#__PURE__*/exportHelper_default()(color_picker_panelvue_ty
       style,
       colors,
       color,
-      deg
+      deg,
+      mode
     }) {
       let newValue = '';
-      if (props.type === 'linear') {
-        // 纯色模式
-        newValue = color.color;
-        currentColorObj.value = color;
-      } else {
+
+      // 更新当前模式
+      if (mode) {
+        currentMode.value = mode;
+      }
+
+      // 根据返回的数据判断是纯色还是渐变
+      if (style) {
         // 渐变模式
         newValue = style.replace(/;$/, '');
         currentColorsArray.value = colors;
         currentDeg.value = deg;
+      } else if (color) {
+        // 纯色模式
+        newValue = color.color;
+        currentColorObj.value = color;
       }
+
+      // 标记为内部更新，避免 modelValue watcher 重新解析
+      isInternalUpdate.value = true;
       emit('update:modelValue', newValue);
       emit('change', newValue);
       emit('active-change', newValue);
+
+      // 下一个 tick 后重置标志
+      setTimeout(() => {
+        isInternalUpdate.value = false;
+      }, 0);
     }
 
     // 点击外部关闭
@@ -46706,6 +47140,8 @@ const __exports__ = /*#__PURE__*/exportHelper_default()(color_picker_panelvue_ty
 
     // 监听 modelValue 变化
     Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(() => props.modelValue, newVal => {
+      // 如果是内部更新导致的 modelValue 变化，不重新解析（避免丢失颜色数据）
+      if (isInternalUpdate.value) return;
       if (props.type === 'linear') {
         currentColorObj.value = parseColorString(newVal);
       } else {
@@ -46737,6 +47173,7 @@ const __exports__ = /*#__PURE__*/exportHelper_default()(color_picker_panelvue_ty
       currentColorObj,
       currentColorsArray,
       currentDeg,
+      currentMode,
       triggerStyle,
       dropdownStyle,
       togglePicker,
@@ -46747,8 +47184,8 @@ const __exports__ = /*#__PURE__*/exportHelper_default()(color_picker_panelvue_ty
 });
 // CONCATENATED MODULE: ./src/components/color-picker-gradient.vue?vue&type=script&lang=js
  
-// EXTERNAL MODULE: ./src/components/color-picker-gradient.vue?vue&type=style&index=0&id=3857037c&lang=scss&scoped=true
-var color_picker_gradientvue_type_style_index_0_id_3857037c_lang_scss_scoped_true = __webpack_require__("a0c5");
+// EXTERNAL MODULE: ./src/components/color-picker-gradient.vue?vue&type=style&index=0&id=0d66245f&lang=scss&scoped=true
+var color_picker_gradientvue_type_style_index_0_id_0d66245f_lang_scss_scoped_true = __webpack_require__("bec9");
 
 // CONCATENATED MODULE: ./src/components/color-picker-gradient.vue
 
@@ -46758,7 +47195,7 @@ var color_picker_gradientvue_type_style_index_0_id_3857037c_lang_scss_scoped_tru
 
 
 
-const color_picker_gradient_exports_ = /*#__PURE__*/exportHelper_default()(color_picker_gradientvue_type_script_lang_js, [['render',render],['__scopeId',"data-v-3857037c"]])
+const color_picker_gradient_exports_ = /*#__PURE__*/exportHelper_default()(color_picker_gradientvue_type_script_lang_js, [['render',render],['__scopeId',"data-v-0d66245f"]])
 
 /* harmony default export */ var color_picker_gradient = (color_picker_gradient_exports_);
 // CONCATENATED MODULE: ./src/index.js
