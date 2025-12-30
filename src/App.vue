@@ -37,7 +37,6 @@
         <ColorPickerGradient
           v-model="currentColor3"
           type="gradient"
-          @change="handleColorChange3"
         />
         <div class="color-preview" :style="{ background: currentColor3 }">
           <div class="color-value gradient-value">{{ currentColor3 }}</div>
@@ -52,7 +51,6 @@
           v-model="currentColor4"
           type="gradient"
           :disabledColorDeg="true"
-          @change="handleColorChange4"
         />
         <div class="color-preview" :style="{ background: currentColor4 }">
           <div class="color-value gradient-value">{{ currentColor4 }}</div>

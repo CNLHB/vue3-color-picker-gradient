@@ -90,11 +90,12 @@ export default {
     const triggerRef = ref(null)
     const dropdownRef = ref(null)
     const showPicker = ref(false)
+    const isInternalUpdate = ref(false) // 标志是否是内部更新
 
     // 只有当 modelValue 有值时才解析，否则为 undefined
     const currentColorObj = ref(props.modelValue && props.type === 'linear' ? parseColorString(props.modelValue) : undefined)
-    const currentColorsArray = ref(props.modelValue && props.type === 'gradient' ? parseGradientString(props.modelValue) : undefined)
-    const currentDeg = ref(props.modelValue && props.type === 'gradient' ? parseGradientDeg(props.modelValue) : 90)
+    const currentColorsArray = ref(props.type === 'gradient' ? parseGradientString(props.modelValue) : undefined)
+    const currentDeg = ref(props.type === 'gradient' ? parseGradientDeg(props.modelValue) : 90)
     const currentMode = ref(props.type) // 保存当前模式状态
     const dropdownStyle = ref({})
 
@@ -303,9 +304,16 @@ export default {
         currentColorObj.value = color
       }
 
+      // 标记为内部更新，避免 modelValue watcher 重新解析
+      isInternalUpdate.value = true
       emit('update:modelValue', newValue)
       emit('change', newValue)
       emit('active-change', newValue)
+
+      // 下一个 tick 后重置标志
+      setTimeout(() => {
+        isInternalUpdate.value = false
+      }, 0)
     }
 
     // 点击外部关闭
@@ -325,6 +333,9 @@ export default {
 
     // 监听 modelValue 变化
     watch(() => props.modelValue, (newVal) => {
+      // 如果是内部更新导致的 modelValue 变化，不重新解析（避免丢失颜色数据）
+      if (isInternalUpdate.value) return
+
       if (props.type === 'linear') {
         currentColorObj.value = parseColorString(newVal)
       } else {

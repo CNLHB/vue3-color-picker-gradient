@@ -80,7 +80,6 @@
 <script>
 import {
   computed,
-  nextTick,
   onMounted,
   onUnmounted,
   reactive,
@@ -147,6 +146,8 @@ export default {
       startMovePst: 0,
       currentMode: type.value, // 当前模式：linear 或 gradient
       shouldEmitOnBarStyleChange: false, // 控制 barStyle 变化时是否触发事件
+      lastEmittedStyle: '', // 记录上次发出的样式，用于防止重复触发
+      isEmitting: false, // 标志是否正在发出change事件，避免监听自己的更改
     })
 
     const barStyle = computed(() => {
@@ -183,6 +184,10 @@ export default {
       if (state.currentMode === 'linear') return
       if (!state.shouldEmitOnBarStyleChange) return
 
+      // 防止重复触发：如果样式没有变化，不发出事件
+      if (barStyle === state.lastEmittedStyle) return
+
+      state.lastEmittedStyle = barStyle
       emitColorChange({
         style: barStyle,
       })
@@ -200,11 +205,19 @@ export default {
 
     watch(
       pColors,
-      (pColors) => {
-        if (state.selectIndex >= pColors.length) {
-          state.selectIndex = pColors.length - 1
+      (newPColors, oldPColors) => {
+        if (!newPColors) return // 如果 pColors 为空，不更新
+        if (state.isEmitting) return // 如果正在发出事件，忽略由此引起的 props 更新
+
+        // 如果颜色数据没有实际变化，不更新（避免重新打开面板时重置）
+        if (oldPColors && JSON.stringify(newPColors) === JSON.stringify(oldPColors)) {
+          return
         }
-        state.colors = cloneDeep(pColors)
+
+        if (state.selectIndex >= newPColors.length) {
+          state.selectIndex = newPColors.length - 1
+        }
+        state.colors = cloneDeep(newPColors)
       },
       {
         deep: true,
@@ -228,20 +241,19 @@ export default {
       // 初始化颜色值
       if (state.currentMode === 'gradient') {
         // 如果没有传入渐变色数据，使用默认值
-        const hasInitialColors = pColors.value && pColors.value.length > 0
         if (!state.colors || state.colors.length === 0) {
           state.colors = [
             {
               color: 'rgba(255, 255, 255, 1)',
               hex: '#ffffff',
               rgba: { r: 255, g: 255, b: 255, a: 1 },
-              pst: 100,
+              pst: 0,
             },
             {
               color: 'rgba(0, 0, 0, 1)',
               hex: '#000000',
               rgba: { r: 0, g: 0, b: 0, a: 1 },
-              pst: 0,
+              pst: 100,
             },
           ]
         }
@@ -251,15 +263,8 @@ export default {
           (item) => item.pst === renderList[0].pst
         )
 
-        // 只有传入了初始值才触发事件，并启用 barStyle 监听
-        if (hasInitialColors) {
-          state.shouldEmitOnBarStyleChange = true
-          nextTick(() => {
-            emitColorChange({
-              style: barStyle.value,
-            })
-          })
-        }
+        // 不在初始化时触发事件，避免覆盖传入的初始值
+        // 只有用户实际操作（修改颜色、角度、滑块）时才会触发 change 事件
       } else {
         // 如果没有传入纯色数据，使用默认值
         const hasInitialColor = pColor.value !== null && pColor.value !== undefined
@@ -396,6 +401,7 @@ export default {
       color = cloneDeep(state.color),
       deg = state.deg,
     }) {
+      state.isEmitting = true
       emit('change', {
         style,
         colors,
@@ -403,15 +409,22 @@ export default {
         deg,
         mode: state.currentMode, // 返回当前模式
       })
+      // 使用 setTimeout 确保 props 更新后再重置标志
+      setTimeout(() => {
+        state.isEmitting = false
+      }, 0)
     }
 
     function handleGradientColorChange(color) {
       const rgba = color.rgba
-      state.colors[
-        state.selectIndex
-      ].color = `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`
-      state.colors[state.selectIndex].hex = color.hex
-      state.colors[state.selectIndex].rgba = color.rgba
+      const updatedColor = {
+        ...state.colors[state.selectIndex],
+        color: `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`,
+        hex: color.hex,
+        rgba: color.rgba,
+      }
+      // 使用splice替换整个对象以确保响应式更新
+      state.colors.splice(state.selectIndex, 1, updatedColor)
     }
 
     function clickGColorPot(index) {
@@ -422,7 +435,6 @@ export default {
     function handleClose() {
       emit('close')
     }
-
     // 切换模式
     function switchMode(mode) {
       if (state.currentMode === mode) return
@@ -440,13 +452,13 @@ export default {
               color: 'rgba(255, 255, 255, 1)',
               hex: '#ffffff',
               rgba: { r: 255, g: 255, b: 255, a: 1 },
-              pst: 100,
+              pst: 0,
             },
             {
               color: 'rgba(0, 0, 0, 1)',
               hex: '#000000',
               rgba: { r: 0, g: 0, b: 0, a: 1 },
-              pst: 0,
+              pst: 100,
             },
           ]
         }

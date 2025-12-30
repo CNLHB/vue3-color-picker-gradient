@@ -363,6 +363,8 @@ export default {
     }
 
     function changeColor(color) {
+      console.log('changeColor',color);
+      
       const rgba = color.rgba
       const hex = color.hex
 
@@ -397,6 +399,8 @@ export default {
     }
 
     function handleGradientColorChange(color) {
+      console.log('handleGradientColorChange', color);
+      
       const rgba = color.rgba
       state.colors[
         state.selectIndex
